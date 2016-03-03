@@ -3,9 +3,8 @@
 namespace CodeCommerce;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
 
-class Category extends Model
+class Product extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +12,6 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'price'
     ];
-
 }
