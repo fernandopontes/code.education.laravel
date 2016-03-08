@@ -19,10 +19,25 @@ class AdminProductsController extends Controller
         $this->products = $product;
     }
 
-    public function index()
+    public function index($pagination = NULL)
     {
         $products = $this->products->all();
 
         return view('products', compact('products'));
+    }
+
+    public function cadastrar()
+    {
+
+    }
+
+    public function editar($id)
+    {
+
+    }
+
+    public function buscar($search)
+    {
+
     }
 }

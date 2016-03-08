@@ -20,10 +20,25 @@ class AdminCategoriesController extends Controller
         $this->categories = $category;
     }
 
-    public function index()
+    public function index($pagination = NULL)
     {
         $categories = $this->categories->all();
 
         return view('categories', compact('categories'));
+    }
+
+    public function cadastrar()
+    {
+
+    }
+
+    public function editar($id)
+    {
+
+    }
+
+    public function buscar($search)
+    {
+
     }
 }
