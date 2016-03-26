@@ -19,6 +19,7 @@ class ProductTableSeeder extends Seeder
                 'name'  =>  $faker->name(),
                 'description'  =>  $faker->sentence(),
                 'price'   => $faker->unique()->randomDigit . '000',
+                'category_id' => $faker->numberBetween(1, 15),
                 'featured' => 1,
                 'recommend' => 0
             ]);
