@@ -2,7 +2,9 @@
 
 namespace CodeCommerce\Http\Requests;
 
-class ProductRequest extends Request
+use CodeCommerce\Http\Requests\Request;
+
+class ProductImageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +24,7 @@ class ProductRequest extends Request
     public function rules()
     {
         return [
-            'name'  =>  'required',
-            'description'   =>  'required',
-            'price'     =>  'required',
-            'featured'  =>  'required',
-            'recommend' =>  'required'
+            'image' => 'image'
         ];
     }
 }

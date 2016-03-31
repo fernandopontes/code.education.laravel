@@ -22,7 +22,8 @@
                 <td>{{ $product->description }}</td>
                 <td>
                     <a href="{{ route('products.edit', ['id' => $product->id]) }}">Edit</a> |
-                    <a href="{{ route('products.destroy', ['id' => $product->id]) }}">Delete</a>
+                    <a href="{{ route('products.destroy', ['id' => $product->id]) }}">Delete |</a>
+                    <a href="{{ route('products.images', ['id' => $product->id]) }}">Images</a>
                 </td>
             </tr>
             @endforeach

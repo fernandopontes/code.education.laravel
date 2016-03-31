@@ -65,6 +65,15 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/create', ['as' => 'products.create', 'uses' => 'ProductsController@create']);
             Route::put('/{id}/update', ['as' => 'products.update', 'uses' => 'ProductsController@update']);
 
+            Route::group(['prefix' => 'images'], function() {
+
+                Route::get('{id}/product', ['as' => 'products.images', 'uses' => 'ProductsController@images']);
+                Route::post('/store/{id}/product', ['as' => 'products.image.store', 'uses' => 'ProductsController@storeImage']);
+                Route::get('/create/{id}/product', ['as' => 'products.images.create', 'uses' => 'ProductsController@createImage']);
+                Route::get('/destroy/{id}/image', ['as' => 'products.images.destroy', 'uses' => 'ProductsController@destroyImage']);
+
+            });
+
         });
 
     });

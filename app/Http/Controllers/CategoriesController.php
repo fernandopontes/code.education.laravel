@@ -2,11 +2,9 @@
 
 namespace CodeCommerce\Http\Controllers;
 
-use Illuminate\Http\Request;
 use CodeCommerce\Category;
-use CodeCommerce\Http\Controllers\Controller;
-
 use CodeCommerce\Http\Requests;
+use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
