@@ -61,7 +61,7 @@ class ProductsController extends Controller
     public function update(ProductRequest $request, $id)
     {
         $input = $request->all();
-        $this->productModel->attachProductTag($input['tags'], $this->productModel->find($id));
+        $this->productModel->attachProductTag($input['tags'], $this->productModel->find($id), TRUE);
 
         $this->productModel->find($id)->update($input);
 

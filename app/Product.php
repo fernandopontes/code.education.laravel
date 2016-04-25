@@ -49,31 +49,41 @@ class Product extends Model
         return $query->where('featured', '=', 1);
     }
 
-    public function attachProductTag($tags, $product)
+    public function attachProductTag($tags, $product, $update=FALSE)
     {
         if($tags)
         {
             $tags = array_map("trim", explode(',', $tags));
+            $tagsUpdate = array();
 
             foreach ($tags as $tag) {
                 $tagDb = Tag::where('name', 'LIKE', $tag)->get();
 
-                if (count($tagDb->all()) > 0) {
+                if (count($tagDb->all()) > 0)
+                {
                     // Verifica se tag já está anexada ao produto, caso não, anexa a tag ao produto
-                    if (!$product->tags()->find($tagDb->all()[0]->attributes['id'])) {
+                    if (!$product->tags()->find($tagDb->all()[0]->attributes['id']))
+                    {
                         $product->tags()->attach($tagDb);
-                    } // Caso contrário utiliza para a sincronização das tags do produto
-                    else {
-                        $product->tags()->sync([$tagDb->all()[0]->attributes['id']]);
                     }
-                } else {
-                    $tagDb = new Tag;
-                    $tagDb->name = $tag;
-                    $tagDb->save();
-
-                    $product->tags()->attach($tagDb);
                 }
+                else
+                {
+                    if($tag != "")
+                    {
+                        $tagDb = new Tag;
+                        $tagDb->name = $tag;
+                        $tagDb->save();
+
+                        $product->tags()->attach($tagDb);
+                    }
+                }
+
+                $tagsUpdate[] = $tagDb->all()[0]->attributes['id'];
             }
+
+            if($update)
+                $product->tags()->sync($tagsUpdate);
         }
         else
         {
