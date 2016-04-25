@@ -44,6 +44,19 @@
             {!! Form::select('recommend', ['1' => 'Sim', '0' => 'Não'], $product->recommend, ['class' => 'form-control']) !!}
         </div>
 
+        <?php
+            $tagsDb = array();
+
+            foreach($tags as $tag)
+            {
+                $tagsDb[] = $tag->name;
+            }
+        ?>
+        <div class="form-group">
+            {!! Form::label('tags', 'Tags: (separe as tags com vírgula)') !!}
+            {!! Form::textarea('tags', implode(', ', $tagsDb), ['class' => 'form-control', 'rows' => '5']) !!}
+        </div>
+
         <div class="form-group">
             {!! Form::submit('Edit Product', ['class' => 'btn btn-primary form-control']) !!}
         </div>

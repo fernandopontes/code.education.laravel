@@ -31,6 +31,9 @@ Route::pattern('pagination', '[0-9]+');
 Route::pattern('search', '[A-Za-z0-9]+');
 
 Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/', 'StoreController@index');
+
     Route::group(['prefix' => 'admin'], function() {
 
         /*Route::get('products', ['as' => 'produtos', 'uses' => 'AdminProductsController@index']);

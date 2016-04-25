@@ -8,6 +8,7 @@ use CodeCommerce\Http\Requests\ProductRequest;
 use CodeCommerce\Product;
 use CodeCommerce\ProductImage;
 
+use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -43,21 +44,26 @@ class ProductsController extends Controller
 
         $product->save();
 
+        $this->productModel->attachProductTag($input['tags'], $product);
+
         return redirect('admin/products');
     }
 
     public function edit($id, Category $category)
     {
         $categories = $category->lists('name', 'id');
-
         $product = $this->productModel->find($id);
+        $tags = $product->tags;
 
-        return view('products.edit', compact('product', 'categories'));
+        return view('products.edit', compact('product', 'categories', 'tags'));
     }
 
     public function update(ProductRequest $request, $id)
     {
-        $this->productModel->find($id)->update($request->all());
+        $input = $request->all();
+        $this->productModel->attachProductTag($input['tags'], $this->productModel->find($id));
+
+        $this->productModel->find($id)->update($input);
 
         return redirect('admin/products');
     }
