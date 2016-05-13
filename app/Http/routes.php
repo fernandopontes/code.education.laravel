@@ -28,11 +28,14 @@ Route::get('/', function () {
 
 Route::pattern('id', '[0-9]+');
 Route::pattern('pagination', '[0-9]+');
+Route::pattern('category', '[0-9]+');
 Route::pattern('search', '[A-Za-z0-9]+');
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/', 'StoreController@index');
+    Route::get('/', ['as' => 'store', 'uses' => 'StoreController@index']);
+    Route::get('/produtos', ['as' => 'store.produtos', 'uses' => 'StoreController@produtos']);
+    Route::get('/produtos/categoria/{category?}', ['as' => 'store.produtos.category', 'uses' => 'StoreController@produtosCategoria']);
 
     Route::group(['prefix' => 'admin'], function() {
 
