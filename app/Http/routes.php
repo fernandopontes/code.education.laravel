@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/produtos', ['as' => 'store.produtos', 'uses' => 'StoreController@produtos']);
     Route::get('/produtos/categoria/{category?}', ['as' => 'store.produtos.category', 'uses' => 'StoreController@produtosCategoria']);
 
-    Route::group(['prefix' => 'admin'], function() {
+    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
         /*Route::get('products', ['as' => 'produtos', 'uses' => 'AdminProductsController@index']);
         Route::get('products/{pagination?}', ['as' => 'produtos-paginacao', 'uses' => 'AdminProductsController@index']);
@@ -83,4 +83,10 @@ Route::group(['middleware' => ['web']], function () {
         });
 
     });
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
