@@ -4,6 +4,7 @@ namespace CodeCommerce\Http\Controllers;
 
 use CodeCommerce\Category;
 use CodeCommerce\Product;
+use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -32,6 +33,23 @@ class StoreController extends Controller
         return view('store.index', compact('urlRoot', 'categories', 'pFeatured', 'pRecommend'));
     }
 
+    public function category($id)
+    {
+        $categories = Category::all();
+        $category = Category::find($id);
+        $products = Product::ofCategory($id)->get();
+
+        return view('store.category', compact('categories', 'products', 'category'));
+    }
+
+    public function product($id)
+    {
+        $categories = Category::all();
+        $product = Product::find($id);
+
+        return view('store.product', compact('categories', 'product'));
+    }
+
     public function produtosCategoria($categoryId)
     {
         $category = $this->categoryModel->find($categoryId);
@@ -45,5 +63,14 @@ class StoreController extends Controller
         $urlRoot = $this->appUrlRoot;
 
         return view('store.index', compact('urlRoot', 'categories', 'category', 'pagInterna', 'pCategory'));
+    }
+
+    public function tagProduct($id)
+    {
+        $tag = Tag::find($id);
+        $tProducts = $tag->products;
+        $categories = Category::all();
+
+        return view('store.products_tag', compact('tag', 'tProducts', 'categories'));
     }
 }
