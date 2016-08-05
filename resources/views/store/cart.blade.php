@@ -28,9 +28,9 @@
                             <h4><a href="{{ route('store.product', ['id' => $k]) }}">{{ $item['name'] }}</a></h4>
                             <p>Código: {{ $k }}</p>
                         </td>
-                        <td class="cart_price">R$ {{ $item['price'] }}</td>
-                        <td class="cart_quantity">{{ $item['qtd'] }}</td>
-                        <td class="cart_total">R$ {{ $item['qtd'] * $item['price'] }}</td>
+                        <td class="cart_price">R$ {{ $item['price'] }} <input type="hidden" name="price" value="{{ $item['price'] }}"></td>
+                        <td class="cart_quantity"><input type="number" name="qtd" value="{{ $item['qtd'] }}"></td>
+                        <td class="cart_total">R$ <span class="cart_total_valor">{{ $item['qtd'] * $item['price'] }}</span></td>
                         <td class="cart_delete">
                             <a href="{{ route('store.cart.destroy', ['id' => $k]) }}" class="cart_quantity_bottom">Delete</a>
                         </td>
@@ -46,7 +46,7 @@
                         <td colspan="6">
                             <div class="pull-right">
                                 <span>
-                                    TOTAL: R$ {{ $cart->getTotal() }}
+                                    TOTAL: R$ <span id="cart_total_t">{{ $cart->getTotal() }}</span>
                                 </span>
 
                                 <a href="" class="btn btn-success">Fechar a conta</a>
@@ -59,4 +59,28 @@
         </div>
     </section>
 
+@endsection
+
+@section('post-script')
+    <script type="text/javascript">
+        $("table tr td.cart_quantity input").change(function(){
+            var input = this;
+            var row = $(input).parent().parent();
+            var valor = $(row).find('td.cart_price input').val();
+            var qtd = $(row).find('td.cart_quantity input').val();
+            var subtotal = $(row).find('td.cart_total span.cart_total_valor').html(valor * qtd);
+
+            var total = 0;
+
+            $('table tr td.cart_quantity input').each(function()
+            {
+                var row = $(this).parent().parent();
+                var valor = $(row).find('td.cart_price input').val();
+                var qtd = $(row).find('td.cart_quantity input').val();
+                total += valor * qtd;
+            });
+
+            $('#cart_total_t').html(total);
+        });
+    </script>
 @endsection

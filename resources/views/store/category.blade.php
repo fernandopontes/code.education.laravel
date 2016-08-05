@@ -10,7 +10,7 @@
             <div class="features_items"><!--features_items-->
                 <h2 class="title text-center">{{ $category->name }}</h2>
 
-                @include('store.partial.product', ['products' => $products]);
+                @include('store.partial.product', ['products' => $products])
 
             </div><!--features_items-->
     </div>
