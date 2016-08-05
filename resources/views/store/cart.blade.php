@@ -68,7 +68,7 @@
             var row = $(input).parent().parent();
             var valor = $(row).find('td.cart_price input').val();
             var qtd = $(row).find('td.cart_quantity input').val();
-            var subtotal = $(row).find('td.cart_total span.cart_total_valor').html(valor * qtd);
+            $(row).find('td.cart_total span.cart_total_valor').html(valor * qtd);
 
             var total = 0;
 
