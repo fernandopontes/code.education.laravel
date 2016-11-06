@@ -44,9 +44,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('cart', ['as' => 'store.cart', 'uses' => 'CartController@index']);
     Route::get('cart/add/{id}', ['as' => 'store.cart.add', 'uses' => 'CartController@add']);
     Route::get('cart/destroy/{id}', ['as' => 'store.cart.destroy', 'uses' => 'CartController@destroy']);
-    Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'auth'], function()
+    {
+        Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+        Route::get('account/orders', ['as' => 'account.orders', 'uses' => 'AccountController@orders']);
+    });
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'authadmin'], function() {
 
         /*Route::get('products', ['as' => 'produtos', 'uses' => 'AdminProductsController@index']);
         Route::get('products/{pagination?}', ['as' => 'produtos-paginacao', 'uses' => 'AdminProductsController@index']);

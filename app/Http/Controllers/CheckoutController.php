@@ -2,6 +2,8 @@
 
 namespace CodeCommerce\Http\Controllers;
 
+use CodeCommerce\Category;
+use CodeCommerce\Events\CheckoutEvent;
 use CodeCommerce\Order;
 use CodeCommerce\OrderItem;
 use Illuminate\Http\Request;
@@ -14,15 +16,17 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     public function place(Order $order, OrderItem $orderItem)
     {
-        if (Session::has('cart'))
+        /*if(Session::has('cart'))
         {
             return false;
-        }
+        }*/
+
+        $categories = Category::all();
 
         $cart = Session::get('cart');
 
@@ -35,12 +39,21 @@ class CheckoutController extends Controller
 
             foreach($cart->all() as $k => $item)
             {
-                $order->items()->create([
+                $orderItem->create([
                     'product_id' => $k,
+                    'order_id' => $orderDB->id,
                     'price' => $item['price'],
                     'qtd' => $item['qtd']
                 ]);
             }
+
+            $cart->clear();
+
+            event(new CheckoutEvent());
+
+            return view('store.checkout', compact('orderDB', 'cart', 'categories'));
         }
+
+        return view('store.checkout', ['cart' => 'empty', 'categories' => $categories]);
     }
 }

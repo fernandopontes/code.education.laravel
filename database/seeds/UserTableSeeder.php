@@ -11,6 +11,14 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->truncate();
 
+        factory(User::class)->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('123456'),
+            'remember_token' => str_random(10),
+            'is_admin' => 1
+        ]);
+
         $faker = Faker::create();
 
         foreach(range(1,10) as $i)
@@ -18,7 +26,8 @@ class UserTableSeeder extends Seeder
             User::create([
                 'name'  =>  $faker->name(),
                 'email'  =>  $faker->email(),
-                'password'   => Hash::make($faker->word())
+                'password'   => Hash::make($faker->word()),
+                'is_admin' => 0
             ]);
         }
 
