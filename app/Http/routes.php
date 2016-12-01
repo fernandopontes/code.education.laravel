@@ -53,18 +53,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'admin', 'middleware' => 'authadmin'], function() {
 
-        /*Route::get('products', ['as' => 'produtos', 'uses' => 'AdminProductsController@index']);
-        Route::get('products/{pagination?}', ['as' => 'produtos-paginacao', 'uses' => 'AdminProductsController@index']);
-        Route::get('products-add', ['as' => 'produtos_cadastrar', 'uses' => 'AdminProductsController@cadastrar']);
-        Route::get('products-edit/{id}', ['as' => 'produtos_editar', 'uses' => 'AdminProductsController@editar']);
-        Route::get('products-search/{search}', ['as' => 'produtos_buscar', 'uses' => 'AdminProductsController@buscar']);
-
-        Route::get('categories', ['as' => 'categorias', 'uses' => 'AdminCategoriesController@index']);
-        Route::get('categories/{pagination?}', ['as' => 'categorias-paginacao', 'uses' => 'AdminCategoriesController@index']);
-        Route::get('categories-add', ['as' => 'categorias_cadastrar', 'uses' => 'AdminCategoriesController@cadastrar']);
-        Route::get('categories-edit/{id}', ['as' => 'categorias_editar', 'uses' => 'AdminCategoriesController@editar']);
-        Route::get('categories-search/{search}', ['as' => 'categorias_buscar', 'uses' => 'AdminCategoriesController@buscar']);*/
-
         Route::group(['prefix' => 'categories'], function() {
 
             Route::get('/', ['as' => 'categories', 'uses' => 'CategoriesController@index']);
@@ -93,6 +81,15 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/destroy/{id}/image', ['as' => 'products.images.destroy', 'uses' => 'ProductsController@destroyImage']);
 
             });
+
+        });
+
+        Route::group(['prefix' => 'orders'], function() {
+
+            Route::get('/', ['as' => 'orders', 'uses' => 'OrdersController@index']);
+            Route::get('/{id}/destroy', ['as' => 'orders.destroy', 'uses' => 'OrdersController@destroy']);
+            Route::get('/{id}/edit', ['as' => 'orders.edit', 'uses' => 'OrdersController@edit']);
+            Route::put('/{id}/update', ['as' => 'orders.update', 'uses' => 'OrdersController@update']);
 
         });
 

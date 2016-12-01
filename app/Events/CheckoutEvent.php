@@ -10,14 +10,34 @@ class CheckoutEvent extends Event
 {
     use SerializesModels;
 
+    private $user;
+    private $order;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $order)
     {
-        //
+        $this->user = $user;
+        $this->order = $order;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**

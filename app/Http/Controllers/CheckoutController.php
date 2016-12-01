@@ -49,7 +49,7 @@ class CheckoutController extends Controller
 
             $cart->clear();
 
-            event(new CheckoutEvent());
+            event(new CheckoutEvent(Auth::user(), $orderDB->items));
 
             return view('store.checkout', compact('orderDB', 'cart', 'categories'));
         }

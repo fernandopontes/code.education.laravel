@@ -29,7 +29,7 @@
                     </ul>
                 </td>
                 <td>{{ $order->total }}</td>
-                <td>{{ $order->status }}</td>
+                <td>@if($order->status == 0) Pedido realizado @elseif($order->status == 1) Pedido enviado @elseif($order->status == 2) Pedido entregue @endif</td>
             </tr>
                 @endforeach
             </tbody>
